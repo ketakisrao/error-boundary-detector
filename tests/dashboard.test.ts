@@ -17,7 +17,7 @@ describe('host dashboard and static error fixtures', () => {
       expect(reviewStatus(item, {})).toBe('Awaiting triage');
       expect(item.envelope.componentStack[0]).toMatch(/^at .+ \(src\/.+:\d+:\d+\)$/);
     }
-    expect(componentName(errors[0].envelope.componentStack[0])).toBe('cart-item-list');
+    expect(componentName(errors[0].envelope.componentStack[0])).toBe('credit-card-banner');
   });
   it('routes shopping vertical failures to their owners and retains Cart faults', async () => {
     const cart = forHost(seedErrors(), 'Cart');
@@ -35,7 +35,7 @@ describe('host dashboard and static error fixtures', () => {
     expect(questions.owner.criteria.Cart).toContain('registered to Cart');
   });
   it('sends the full static envelope to the API and uses its measured result', async () => {
-    const item = seedErrors()[1];
+    const item = seedErrors()[0];
     const payload = { ...await evaluate(item.envelope, 'demo'), latencyMs: 137 };
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify(payload)));
     const result = await triageIssue(item, 'live', fetcher);
@@ -49,7 +49,7 @@ describe('host dashboard and static error fixtures', () => {
     expect(canTriage(result, {})).toBe(false);
   });
   it('rejects API failures and malformed decisions rather than showing fake reroutes', async () => {
-    const item = seedErrors()[1];
+    const item = seedErrors()[0];
     const failed = vi.fn<typeof fetch>().mockResolvedValue(new Response('{}', { status: 429 }));
     await expect(triageIssue(item, 'demo', failed)).rejects.toThrow('HTTP 429');
     const malformed = vi.fn<typeof fetch>().mockResolvedValue(new Response('{"team":"Payments"}'));
@@ -58,20 +58,20 @@ describe('host dashboard and static error fixtures', () => {
     expect(canTriage({ ...item, triageState: 'failed' }, {})).toBe(true);
   });
   it('restores only validated completed decisions for the same static event', async () => {
-    const item = seedErrors()[1];
+    const item = seedErrors()[0];
     const result = applyDecision(item, await evaluate(item.envelope, 'demo'));
     const restored = restoreIssues(JSON.stringify([result]));
-    expect(restored[1]).toEqual(result);
-    expect(restored[0].triageState).toBe('pending');
+    expect(restored[0]).toEqual(result);
+    expect(restored[1].triageState).toBe('pending');
     const stale = { ...result, envelope: { ...result.envelope, errorMessage: 'stale fixture' } };
-    expect(restoreIssues(JSON.stringify([stale]))[1].triageState).toBe('pending');
+    expect(restoreIssues(JSON.stringify([stale]))[0].triageState).toBe('pending');
     expect(restoreIssues('invalid')).toEqual(seedErrors());
   });
 });
 
 describe('human review alongside automated triage', () => {
   it('reroutes without changing the host or original Jev evidence', async () => {
-    const seed = seedErrors()[1];
+    const seed = seedErrors()[0];
     const incident = applyDecision(seed, await evaluate(seed.envelope, 'demo'));
     const original = structuredClone(incident);
     const history = recordReview(incident, {}, 'Cart', '  Host contract problem  ');
@@ -83,7 +83,7 @@ describe('human review alongside automated triage', () => {
     expect(forHost([incident], 'Payments')).not.toContain(incident);
   });
   it('does not overwrite human-reviewed assignments during a triage run', () => {
-    const incident = seedErrors()[1];
+    const incident = seedErrors()[0];
     const history = recordReview(incident, {}, 'Payments', 'Ownership correction');
     expect(canTriage(incident, history)).toBe(false);
     expect(currentAssignment(incident, history)).toBe('Payments');
