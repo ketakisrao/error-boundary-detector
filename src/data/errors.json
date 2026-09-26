@@ -1,32 +1,5 @@
 [
   {
-    "id": "ERR-4101",
-    "envelope": {
-      "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
-      "componentStack": [
-        "at cart-item-list (src/components/CartItemList.tsx:42:11)",
-        "at CartPage (src/pages/CartPage.tsx:102:3)",
-        "at main",
-        "at App (src/App.tsx:14:7)"
-      ],
-      "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
-        "at CartItemList (src/components/CartItemList.tsx:42:11)",
-        "at renderWithHooks (assets/react-dom.js:5521:18)"
-      ],
-      "hostRoute": "/cart",
-      "sanitizedProps": {
-        "cart-item-list": {
-          "cart": {
-            "type": "object"
-          }
-        }
-      },
-      "timestamp": "2026-09-26T20:45:00.000Z"
-    }
-  },
-  {
     "id": "ERR-4102",
     "envelope": {
       "errorName": "TypeError",
@@ -51,6 +24,33 @@
         }
       },
       "timestamp": "2026-09-26T20:44:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-4101",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
+      "componentStack": [
+        "at cart-item-list (src/components/CartItemList.tsx:42:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
+        "at CartItemList (src/components/CartItemList.tsx:42:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-item-list": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:45:00.000Z"
     }
   },
   {
