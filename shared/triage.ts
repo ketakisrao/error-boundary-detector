@@ -50,6 +50,11 @@ export const registry = {
   // Routes identify the team receiving the original alert, never the embedded owner.
   routes: { '/vendors': 'Vendors', '/cart': 'Cart', '/checkout': 'Payments' },
   components: {
+    'cart-item-list': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
+    'cart-summary': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
+    'cart-quantity-picker': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
+    'cart-promo-code': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
+    'cart-shipping-estimate': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
     'credit-card-banner': { team: 'Payments' as Team, requiredProp: 'payment', contract: 'payment must be a non-null object' },
     'tax-onboarding-form': { team: 'Tax & Compliance' as Team, requiredProp: 'profile', contract: 'profile must be a non-null object' },
     'vendor-summary': { team: 'Vendors' as Team, requiredProp: 'vendor', contract: 'vendor must be a non-null object' },

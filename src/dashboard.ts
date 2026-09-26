@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { fixtureAnswers, hostTeam, routeDecision, scenarioEnvelope, scenarios, teams, type Decision, type Team } from '../shared/triage';
+import { answersSchema, envelopeSchema, hostTeam, teams, type Decision, type Team } from '../shared/triage';
+import errorFixtures from './data/errors.json';
 
 export const hostPages = [
   { team: 'Cart', route: '/cart' },
@@ -14,7 +15,7 @@ const reviewSchema = z.object({
 const historySchema = z.record(z.array(reviewSchema).max(100));
 export type Review = z.infer<typeof reviewSchema>;
 export type ReviewHistory = Record<string, Review[]>;
-export const reviewStorageKey = 'faultline-reviews-v1';
+export const reviewStorageKey = 'faultline-reviews-v2';
 
 export function parseHistory(value: string | null): ReviewHistory {
   if (!value) return {};
@@ -23,53 +24,69 @@ export function parseHistory(value: string | null): ReviewHistory {
 export function currentAssignment(incident: Decision, history: ReviewHistory): Decision['team'] {
   return history[incident.id]?.at(-1)?.toTeam ?? incident.team;
 }
-export function reviewStatus(incident: Decision, history: ReviewHistory) {
+export function reviewStatus(incident: Decision & { triageState?: Issue['triageState'] }, history: ReviewHistory) {
   const latest = history[incident.id]?.at(-1);
   if (latest) return latest.fromTeam === latest.toTeam ? 'Reviewed' : 'Rerouted';
-  return incident.status === 'Needs review' ? 'Needs review' : 'Auto-assigned';
+  if (incident.triageState === 'running') return 'Analyzing';
+  if (incident.triageState === 'pending') return 'Awaiting triage';
+  if (incident.triageState === 'failed' || incident.status === 'Needs review') return 'Needs review';
+  return isRerouted(incident, history) ? 'Rerouted' : 'Kept with host';
 }
 export function recordReview(incident: Decision, history: ReviewHistory, toTeam: Team, note: string): ReviewHistory {
   const review = reviewSchema.parse({ fromTeam: currentAssignment(incident, history), toTeam, note: note.trim(), timestamp: new Date().toISOString() });
   return { ...history, [incident.id]: [...(history[incident.id] ?? []), review].slice(-100) };
 }
-export function forHost(incidents: Decision[], team: Team): Decision[] {
+export function forHost<T extends Decision>(incidents: T[], team: Team): T[] {
   // A reassignment changes responsibility, not the page where the crash occurred.
   return incidents.filter(item => hostTeam(item.envelope.hostRoute) === team);
 }
 
-export function seedErrors(): Decision[] {
-  const files: Record<string, string> = {
-    'credit-card-banner': 'components/payments/CreditCardBanner.tsx',
-    'des-button': 'components/design-system/DesButton.tsx',
-    'des-select': 'components/design-system/DesSelect.tsx',
-    'remote-widget': 'components/remote/RemoteWidget.tsx',
-  };
-  return hostPages.flatMap(({ team, route }, pageIndex) => {
-    const pattern = pageIndex === 0 ? [0, 2, 4, 3, 0, 1, 2, 0, 4, 3, 0, 2] : pageIndex === 1 ? [0, 2, 1, 3, 4, 0, 2] : [0, 2, 3, 4];
-    return pattern.map((scenarioIndex, index) => {
-      const scenario = scenarios[scenarioIndex];
-      const envelope = scenarioEnvelope(scenario, route);
-      // Seed events are labeled sample data. Actual boundary captures retain React's frames.
-      envelope.componentStack = [
-        `at ${scenario.component} (src/${files[scenario.component]}:5:9)`,
-        `at ${team}Page (src/pages/${team}Page.tsx:24:5)`, 'at main', 'at App (src/App.tsx:18:7)',
-      ];
-      let answers = fixtureAnswers(scenario, route);
-      let routing = routeDecision(answers, envelope);
-      if (pageIndex === 0 && index === 0) {
-        // A labeled, deliberately wrong sample for demonstrating human correction.
-        answers = { ...answers, owner: { ...answers.owner, choice: 'Cart', confidence: .78,
-          probabilities: Object.fromEntries(teams.map(owner => [owner, owner === 'Cart' ? .91 : .09 / (teams.length - 1)])) } };
-        routing = { team: 'Cart', reason: 'Demo misclassification: the host was selected even though credit-card-banner belongs to Payments.' };
-      }
-      const timestamp = new Date(Date.now() - (index * 7 + 2) * 60_000).toISOString();
-      envelope.timestamp = timestamp;
-      return {
-        id: `FL-${pageIndex + 1}${String(248 - index).padStart(3, '0')}`, timestamp, envelope, answers, ...routing,
-        mode: 'demo', model: 'Illustrative Jev decision', latencyMs: 118,
-        status: routing.team === 'Needs review' ? 'Needs review' : 'Routed',
-        severity: answers.severity.score >= 1.5 ? 'High' : 'Medium',
-      } satisfies Decision;
+export interface Issue extends Decision { triageState: 'pending' | 'running' | 'complete' | 'failed' }
+export const decisionStorageKey = 'faultline-decisions-v2';
+const fixtures = z.array(z.object({ id: z.string(), envelope: envelopeSchema })).parse(errorFixtures);
+
+export function seedErrors(): Issue[] {
+  return fixtures.map(({ id, envelope }) => ({
+    id, envelope, timestamp: envelope.timestamp, team: hostTeam(envelope.hostRoute)!,
+    mode: 'demo', model: 'Not evaluated', answers: null, latencyMs: 0,
+    status: 'Routed', severity: 'Unknown', triageState: 'pending',
+    reason: `Initially assigned to ${hostTeam(envelope.hostRoute)} from the host route. Not yet evaluated.`,
+  }));
+}
+export function isRerouted(incident: Decision, history: ReviewHistory): boolean {
+  const assigned = currentAssignment(incident, history);
+  return assigned !== 'Needs review' && assigned !== hostTeam(incident.envelope.hostRoute);
+}
+export function canTriage(incident: Issue, history: ReviewHistory) {
+  return !history[incident.id]?.length && (incident.triageState === 'pending' || incident.triageState === 'failed');
+}
+
+const decisionSchema = z.object({
+  id: z.string(), timestamp: z.string().datetime(), envelope: envelopeSchema,
+  mode: z.enum(['demo', 'live']), model: z.string(), answers: answersSchema.nullable(),
+  team: z.union([z.enum(teams), z.literal('Needs review')]), status: z.enum(['Routed', 'Needs review']),
+  severity: z.enum(['Critical', 'High', 'Medium', 'Unknown']), latencyMs: z.number().finite().nonnegative(), reason: z.string(),
+});
+export function applyDecision(incident: Issue, payload: unknown): Issue {
+  const decision = decisionSchema.parse(payload);
+  // Preserve the event identity, capture time and original JSON envelope.
+  return { ...decision, id: incident.id, timestamp: incident.timestamp, envelope: incident.envelope, triageState: 'complete' };
+}
+export function restoreIssues(value: string | null): Issue[] {
+  const initial = seedErrors();
+  try {
+    const saved = z.array(decisionSchema).parse(JSON.parse(value ?? '[]'));
+    return initial.map(incident => {
+      const prior = saved.find(item => item.id === incident.id && JSON.stringify(item.envelope) === JSON.stringify(incident.envelope));
+      return prior ? applyDecision(incident, prior) : incident;
     });
+  } catch { return initial; }
+}
+export async function triageIssue(incident: Issue, mode: Decision['mode'], fetcher: typeof fetch = fetch): Promise<Issue> {
+  const response = await fetcher('/api/triage', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: AbortSignal.timeout(5000),
+    body: JSON.stringify({ mode, envelope: incident.envelope }),
   });
+  if (!response.ok) throw new Error(`Triage request failed (HTTP ${response.status}). Retry or review this issue.`);
+  return applyDecision(incident, await response.json());
 }
