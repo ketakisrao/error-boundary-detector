@@ -10,7 +10,7 @@ export interface ErrorContextEnvelope {
   sanitizedProps: SanitizedProps;
   timestamp: string;
 }
-export const teams = ['Payments', 'Vendors', 'Cart', 'Tax & Compliance', 'Platform'] as const;
+export const teams = ['Payments', 'Vendors', 'Cart', 'Tax & Compliance', 'Platform', 'Products', 'Reviews', 'Shipping', 'Promotions'] as const;
 export type Team = typeof teams[number];
 export const envelopeSchema = z.object({
   errorName: z.string().min(1).max(100), errorMessage: z.string().min(1).max(1000),
@@ -50,6 +50,10 @@ export const registry = {
   // Routes identify the team receiving the original alert, never the embedded owner.
   routes: { '/vendors': 'Vendors', '/cart': 'Cart', '/checkout': 'Payments' },
   components: {
+    'promotion-summary': { team: 'Promotions' as Team, requiredProp: 'promotion', contract: 'promotion must be a non-null object' },
+    'shipping-estimate': { team: 'Shipping' as Team, requiredProp: 'shipment', contract: 'shipment must be a non-null object' },
+    'product-review-summary': { team: 'Reviews' as Team, requiredProp: 'reviews', contract: 'reviews must be a non-null object' },
+    'product-variant-summary': { team: 'Products' as Team, requiredProp: 'product', contract: 'product must be a non-null object' },
     'cart-item-list': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
     'cart-summary': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },
     'cart-quantity-picker': { team: 'Cart' as Team, requiredProp: 'cart', contract: 'cart must be a non-null object' },

@@ -19,14 +19,18 @@ describe('host dashboard and static error fixtures', () => {
     }
     expect(componentName(errors[0].envelope.componentStack[0])).toBe('cart-item-list');
   });
-  it('routes exactly half of Cart errors to other teams and retains real Cart faults', async () => {
+  it('routes shopping vertical failures to their owners and retains Cart faults', async () => {
     const cart = forHost(seedErrors(), 'Cart');
     const results = await Promise.all(cart.map(async item => applyDecision(item, await evaluate(item.envelope, 'demo'))));
-    expect(results.filter(item => isRerouted(item, {}))).toHaveLength(6);
-    expect(results.filter(item => item.team === 'Cart')).toHaveLength(6);
+    expect(results.filter(item => isRerouted(item, {}))).toHaveLength(8);
+    expect(results.filter(item => item.team === 'Cart')).toHaveLength(4);
     expect(results.filter(item => item.team === 'Payments')).toHaveLength(2);
     expect(results.filter(item => item.team === 'Platform')).toHaveLength(2);
     expect(results.find(item => item.envelope.sanitizedProps['credit-card-banner']?.payment === null)?.team).toBe('Cart');
+    for (const team of ['Products', 'Reviews', 'Shipping', 'Promotions']) {
+      expect(results.filter(item => item.team === team)).toHaveLength(1);
+      expect(Object.keys(questions.owner.criteria)).toContain(team);
+    }
     expect(results.every(item => item.status === 'Routed')).toBe(true);
     expect(questions.owner.criteria.Cart).toContain('registered to Cart');
   });
