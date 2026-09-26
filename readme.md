@@ -15,9 +15,13 @@ Open http://localhost:3000. `npm run build` typechecks and creates production as
 
 ## Demo and live evaluations
 
-The dashboard opens on Cart with 12 labeled sample events. The host selector also offers Vendors and Payments. Each row shows the first component in the React component stack, its page, assigned team, original Jev confidence and review status. The first Cart event is deliberately misclassified to demonstrate a human correction. Sample decisions and stacks are illustrative, not measured Jev inference or calibration.
+The dashboard loads static error context envelopes from `src/data/errors.json`: 12 errors on `/cart`, four on `/vendors`, and two on `/checkout`. Error messages, full React-style component frames, call stacks, sanitized props and capture timestamps live in that file. These are synthetic examples. Every issue initially belongs to its host team, with no precomputed ownership answer or latency.
 
-Open **Review** to inspect the full stack and original decision, confirm an assignment or choose another team. Reviews include an optional note and chronological history. Assignments stay associated with the page where the error occurred. Manual review history is stored in this tab's `sessionStorage` and survives refresh; it does not dispatch external alerts. The original model decision is retained separately.
+Click **Run Jev triage** to submit each issue on the selected page to `/api/triage`. The UI shows the active component, then updates its assignment and measured server processing time. Cart's default fixtures produce six retained Cart faults (five native Cart components and one invalid host prop contract) and six reroutes: Payments ×2, Platform ×2, Vendors ×1, Tax & Compliance ×1. All issues remain open. The reroute count and filter highlight issues that left the host team's queue.
+
+Server health selects **Live Jev** when a key is configured, otherwise a clearly labeled **Demo engine**. The demo computes ownership from component and contract evidence; its probabilities are illustrative. Times come from the API's `latencyMs`, not fixtures. The walkthrough paces row updates by 220 ms for visibility; reported times exclude that pacing and browser/network time. Failed requests stay with their current team, become **Needs review**, and can be retried. Provider failures never silently use demo answers.
+
+Open **Review** to inspect the full stack, original decision and confidence, confirm an assignment or choose another team. Human-reviewed assignments are excluded from subsequent automatic runs. Decisions and review history survive refresh in this tab's `sessionStorage`; closing the session clears them. The reset icon restores only the selected page's sample issues and clears its review history, so the walkthrough can be repeated. No external alerts are dispatched.
 
 To enable real Jev requests, export a server-side key and restart:
 
@@ -26,7 +30,7 @@ export TYPESAFE_API_KEY='your-key'
 npm run dev
 ```
 
-Submit envelopes to `POST /api/triage` with `mode: "live"`; the dashboard currently displays sample events. The reusable `ErrorCapture` component retains real React stack capture for application integration. `.env.example` documents configuration; environment files are not automatically loaded. `TYPESAFE_ENDPOINT` optionally overrides the API URL for local testing. Never put keys in frontend/Vite variables.
+The dashboard will show **Live Jev** and send the static envelopes with `mode: "live"` when you run triage. You can also submit envelopes directly to `POST /api/triage`. The reusable `ErrorCapture` component retains real React stack capture for application integration. `.env.example` documents configuration; environment files are not automatically loaded. `TYPESAFE_ENDPOINT` optionally overrides the API URL for local testing. Never put keys in frontend/Vite variables.
 
 The adapter follows https://docs.typesafe.ai/api and sends all three questions in one request to `https://api.typesafe.ai/v1/systemone`, using `jev-latest`. Live provider failure never falls back to fixtures.
 
@@ -55,7 +59,7 @@ A compact host selector and error table provide the main view. Filter by review 
 
 `shared/triage.ts` contains the requested TypeScript envelope, runtime validation, trusted ownership/contract registry, and routing policy. `server/engine.ts` contains the Jev adapter. `src/ErrorCapture.tsx` demonstrates a real React boundary. `sanitizeProps` retains structural types and nulls, discarding prop values. Initial source frames and all demo props are synthetic. Triggered examples render named React components in separate source files (`credit-card-banner`, `des-button`, `des-select`). The error boundary retains the full React `componentStack` frames, including source locations when React provides them. The live Jev request receives that same frame array; only ownership lookup extracts the first component name. Production integrations must preserve/map component names (including display names through minification) and capture sanitized props at the embedding boundary. Scrub error messages, stack URLs, and identifiers according to your telemetry policy before transmission.
 
-**This is a local interactive demo, not a production alerting service.** Sample events are generated locally. Manual reviews survive refresh in the current browser tab; closing the session clears them. External Slack/PagerDuty dispatch, persistence, source-map resolution, production identity/authentication, tenant isolation, and fleet-wide deduplication are not included. The API has bounded payloads, concurrency and a per-process request cap; add authentication and distributed rate limiting before public deployment. Never send sensitive production telemetry to the demo.
+**This is a local interactive demo, not a production alerting service.** Sample events are loaded from static JSON. Manual reviews survive refresh in the current browser tab; closing the session clears them. External Slack/PagerDuty dispatch, server persistence, source-map resolution, production identity/authentication, tenant isolation, and fleet-wide deduplication are not included. The API has bounded payloads, concurrency and a per-process request cap; add authentication and distributed rate limiting before public deployment. Never send sensitive production telemetry to the demo.
 
 ## API
 

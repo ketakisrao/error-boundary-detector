@@ -1,0 +1,486 @@
+[
+  {
+    "id": "ERR-3101",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'quantity')",
+      "componentStack": [
+        "at cart-item-list (src/components/CartItemList.tsx:42:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'quantity')",
+        "at CartItemList (src/components/CartItemList.tsx:42:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-item-list": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:45:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3102",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'last4')",
+      "componentStack": [
+        "at credit-card-banner (src/components/CreditCardBanner.tsx:43:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'last4')",
+        "at CreditCardBanner (src/components/CreditCardBanner.tsx:43:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "credit-card-banner": {
+          "payment": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:44:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3103",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Line item total is not a finite number",
+      "componentStack": [
+        "at cart-summary (src/components/CartSummary.tsx:44:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Line item total is not a finite number",
+        "at CartSummary (src/components/CartSummary.tsx:44:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-summary": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:43:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3104",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'foreground')",
+      "componentStack": [
+        "at des-button (src/components/DesButton.tsx:45:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'foreground')",
+        "at DesButton (src/components/DesButton.tsx:45:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "des-button": {
+          "theme": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:42:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3105",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Quantity exceeds available inventory",
+      "componentStack": [
+        "at cart-quantity-picker (src/components/CartQuantityPicker.tsx:46:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Quantity exceeds available inventory",
+        "at CartQuantityPicker (src/components/CartQuantityPicker.tsx:46:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-quantity-picker": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:41:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3106",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'taxRegion')",
+      "componentStack": [
+        "at tax-onboarding-form (src/components/TaxOnboardingForm.tsx:47:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'taxRegion')",
+        "at TaxOnboardingForm (src/components/TaxOnboardingForm.tsx:47:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "tax-onboarding-form": {
+          "profile": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:40:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3107",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Discount rule has no eligible items",
+      "componentStack": [
+        "at cart-promo-code (src/components/CartPromoCode.tsx:48:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Discount rule has no eligible items",
+        "at CartPromoCode (src/components/CartPromoCode.tsx:48:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-promo-code": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:39:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3108",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Payment method expiry could not be formatted",
+      "componentStack": [
+        "at credit-card-banner (src/components/CreditCardBanner.tsx:49:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Payment method expiry could not be formatted",
+        "at CreditCardBanner (src/components/CreditCardBanner.tsx:49:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "credit-card-banner": {
+          "payment": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:38:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3109",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Shipping estimate has an invalid delivery date",
+      "componentStack": [
+        "at cart-shipping-estimate (src/components/CartShippingEstimate.tsx:50:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Shipping estimate has an invalid delivery date",
+        "at CartShippingEstimate (src/components/CartShippingEstimate.tsx:50:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "cart-shipping-estimate": {
+          "cart": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:37:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3110",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'selectedIndex')",
+      "componentStack": [
+        "at des-select (src/components/DesSelect.tsx:51:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'selectedIndex')",
+        "at DesSelect (src/components/DesSelect.tsx:51:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "des-select": {
+          "theme": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:36:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3111",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of null (reading 'id')",
+      "componentStack": [
+        "at credit-card-banner (src/components/CreditCardBanner.tsx:52:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of null (reading 'id')",
+        "at CreditCardBanner (src/components/CreditCardBanner.tsx:52:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "credit-card-banner": {
+          "payment": null
+        }
+      },
+      "timestamp": "2026-09-26T20:35:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3112",
+    "envelope": {
+      "errorName": "TypeError",
+      "errorMessage": "Cannot read properties of undefined (reading 'displayName')",
+      "componentStack": [
+        "at vendor-summary (src/components/VendorSummary.tsx:53:11)",
+        "at CartPage (src/pages/CartPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "TypeError: Cannot read properties of undefined (reading 'displayName')",
+        "at VendorSummary (src/components/VendorSummary.tsx:53:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/cart",
+      "sanitizedProps": {
+        "vendor-summary": {
+          "vendor": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:34:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3113",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Vendor address cannot be formatted",
+      "componentStack": [
+        "at vendor-summary (src/components/VendorSummary.tsx:54:11)",
+        "at VendorsPage (src/pages/VendorsPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Vendor address cannot be formatted",
+        "at VendorSummary (src/components/VendorSummary.tsx:54:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/vendors",
+      "sanitizedProps": {
+        "vendor-summary": {
+          "vendor": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:33:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3114",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Card network icon could not be resolved",
+      "componentStack": [
+        "at credit-card-banner (src/components/CreditCardBanner.tsx:55:11)",
+        "at VendorsPage (src/pages/VendorsPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Card network icon could not be resolved",
+        "at CreditCardBanner (src/components/CreditCardBanner.tsx:55:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/vendors",
+      "sanitizedProps": {
+        "credit-card-banner": {
+          "payment": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:32:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3115",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Vendor rating is not a number",
+      "componentStack": [
+        "at vendor-summary (src/components/VendorSummary.tsx:56:11)",
+        "at VendorsPage (src/pages/VendorsPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Vendor rating is not a number",
+        "at VendorSummary (src/components/VendorSummary.tsx:56:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/vendors",
+      "sanitizedProps": {
+        "vendor-summary": {
+          "vendor": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:31:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3116",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Button theme is missing a focus token",
+      "componentStack": [
+        "at des-button (src/components/DesButton.tsx:57:11)",
+        "at VendorsPage (src/pages/VendorsPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Button theme is missing a focus token",
+        "at DesButton (src/components/DesButton.tsx:57:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/vendors",
+      "sanitizedProps": {
+        "des-button": {
+          "theme": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:30:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3117",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Payment card expiry is invalid",
+      "componentStack": [
+        "at credit-card-banner (src/components/CreditCardBanner.tsx:58:11)",
+        "at CheckoutPage (src/pages/CheckoutPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Payment card expiry is invalid",
+        "at CreditCardBanner (src/components/CreditCardBanner.tsx:58:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/checkout",
+      "sanitizedProps": {
+        "credit-card-banner": {
+          "payment": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:29:00.000Z"
+    }
+  },
+  {
+    "id": "ERR-3118",
+    "envelope": {
+      "errorName": "Error",
+      "errorMessage": "Selected option is missing its label",
+      "componentStack": [
+        "at des-select (src/components/DesSelect.tsx:59:11)",
+        "at CheckoutPage (src/pages/CheckoutPage.tsx:102:3)",
+        "at main",
+        "at App (src/App.tsx:14:7)"
+      ],
+      "callStack": [
+        "Error: Selected option is missing its label",
+        "at DesSelect (src/components/DesSelect.tsx:59:11)",
+        "at renderWithHooks (assets/react-dom.js:5521:18)"
+      ],
+      "hostRoute": "/checkout",
+      "sanitizedProps": {
+        "des-select": {
+          "theme": {
+            "type": "object"
+          }
+        }
+      },
+      "timestamp": "2026-09-26T20:28:00.000Z"
+    }
+  }
+]
