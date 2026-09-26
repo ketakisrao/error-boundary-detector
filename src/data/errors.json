@@ -1,9 +1,9 @@
 [
   {
-    "id": "ERR-3101",
+    "id": "ERR-4101",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'quantity')",
+      "errorMessage": "Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
       "componentStack": [
         "at cart-item-list (src/components/CartItemList.tsx:42:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
@@ -11,7 +11,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'quantity')",
+        "TypeError: Cannot read properties of undefined (reading 'quantity') after a removed line item is applied twice",
         "at CartItemList (src/components/CartItemList.tsx:42:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -27,10 +27,10 @@
     }
   },
   {
-    "id": "ERR-3102",
+    "id": "ERR-4102",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'last4')",
+      "errorMessage": "Cannot read properties of undefined (reading 'last4') after saved payment methods refresh",
       "componentStack": [
         "at credit-card-banner (src/components/CreditCardBanner.tsx:43:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
@@ -38,7 +38,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'last4')",
+        "TypeError: Cannot read properties of undefined (reading 'last4') after saved payment methods refresh",
         "at CreditCardBanner (src/components/CreditCardBanner.tsx:43:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -54,10 +54,10 @@
     }
   },
   {
-    "id": "ERR-3103",
+    "id": "ERR-4103",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Line item total is not a finite number",
+      "errorMessage": "Cart subtotal is NaN after merging a live price update with the current line items",
       "componentStack": [
         "at cart-summary (src/components/CartSummary.tsx:44:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
@@ -65,7 +65,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Line item total is not a finite number",
+        "Error: Cart subtotal is NaN after merging a live price update with the current line items",
         "at CartSummary (src/components/CartSummary.tsx:44:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -81,18 +81,19 @@
     }
   },
   {
-    "id": "ERR-3104",
+    "id": "ERR-4104",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'foreground')",
+      "errorMessage": "Cannot read properties of undefined (reading 'foreground') while rendering the checkout button loading state",
       "componentStack": [
         "at des-button (src/components/DesButton.tsx:45:11)",
+        "at CheckoutActions (src/components/CheckoutActions.tsx:28:5)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'foreground')",
+        "TypeError: Cannot read properties of undefined (reading 'foreground') while rendering the checkout button loading state",
         "at DesButton (src/components/DesButton.tsx:45:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -108,10 +109,10 @@
     }
   },
   {
-    "id": "ERR-3105",
+    "id": "ERR-4105",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Quantity exceeds available inventory",
+      "errorMessage": "Cannot read properties of undefined (reading 'quantity') after an inventory update removes the selected line",
       "componentStack": [
         "at cart-quantity-picker (src/components/CartQuantityPicker.tsx:46:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
@@ -119,7 +120,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Quantity exceeds available inventory",
+        "Error: Cannot read properties of undefined (reading 'quantity') after an inventory update removes the selected line",
         "at CartQuantityPicker (src/components/CartQuantityPicker.tsx:46:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -135,25 +136,25 @@
     }
   },
   {
-    "id": "ERR-3106",
+    "id": "ERR-4106",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'taxRegion')",
+      "errorMessage": "Cannot read properties of undefined (reading 'label') after a product availability refresh removes the selected variant",
       "componentStack": [
-        "at tax-onboarding-form (src/components/TaxOnboardingForm.tsx:47:11)",
+        "at product-variant-summary (src/components/ProductVariantSummary.tsx:47:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'taxRegion')",
-        "at TaxOnboardingForm (src/components/TaxOnboardingForm.tsx:47:11)",
+        "TypeError: Cannot read properties of undefined (reading 'label') after a product availability refresh removes the selected variant",
+        "at ProductVariantSummary (src/components/ProductVariantSummary.tsx:47:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
       "hostRoute": "/cart",
       "sanitizedProps": {
-        "tax-onboarding-form": {
-          "profile": {
+        "product-variant-summary": {
+          "product": {
             "type": "object"
           }
         }
@@ -162,25 +163,25 @@
     }
   },
   {
-    "id": "ERR-3107",
+    "id": "ERR-4107",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Discount rule has no eligible items",
+      "errorMessage": "Discount total is NaN after a promotion refresh changes the eligible cart lines",
       "componentStack": [
-        "at cart-promo-code (src/components/CartPromoCode.tsx:48:11)",
+        "at promotion-summary (src/components/PromotionSummary.tsx:48:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Discount rule has no eligible items",
-        "at CartPromoCode (src/components/CartPromoCode.tsx:48:11)",
+        "Error: Discount total is NaN after a promotion refresh changes the eligible cart lines",
+        "at PromotionSummary (src/components/PromotionSummary.tsx:48:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
       "hostRoute": "/cart",
       "sanitizedProps": {
-        "cart-promo-code": {
-          "cart": {
+        "promotion-summary": {
+          "promotion": {
             "type": "object"
           }
         }
@@ -189,10 +190,10 @@
     }
   },
   {
-    "id": "ERR-3108",
+    "id": "ERR-4108",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Payment method expiry could not be formatted",
+      "errorMessage": "Saved payment method expiry cannot be formatted after a wallet refresh",
       "componentStack": [
         "at credit-card-banner (src/components/CreditCardBanner.tsx:49:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
@@ -200,7 +201,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Payment method expiry could not be formatted",
+        "Error: Saved payment method expiry cannot be formatted after a wallet refresh",
         "at CreditCardBanner (src/components/CreditCardBanner.tsx:49:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -216,25 +217,25 @@
     }
   },
   {
-    "id": "ERR-3109",
+    "id": "ERR-4109",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Shipping estimate has an invalid delivery date",
+      "errorMessage": "Invalid time value while rendering a refreshed delivery estimate",
       "componentStack": [
-        "at cart-shipping-estimate (src/components/CartShippingEstimate.tsx:50:11)",
+        "at shipping-estimate (src/components/ShippingEstimate.tsx:50:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Shipping estimate has an invalid delivery date",
-        "at CartShippingEstimate (src/components/CartShippingEstimate.tsx:50:11)",
+        "Error: Invalid time value while rendering a refreshed delivery estimate",
+        "at ShippingEstimate (src/components/ShippingEstimate.tsx:50:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
       "hostRoute": "/cart",
       "sanitizedProps": {
-        "cart-shipping-estimate": {
-          "cart": {
+        "shipping-estimate": {
+          "shipment": {
             "type": "object"
           }
         }
@@ -243,18 +244,19 @@
     }
   },
   {
-    "id": "ERR-3110",
+    "id": "ERR-4110",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'selectedIndex')",
+      "errorMessage": "Cannot read properties of undefined (reading 'selectedIndex') after delivery options refresh",
       "componentStack": [
         "at des-select (src/components/DesSelect.tsx:51:11)",
+        "at DeliveryOptions (src/components/DeliveryOptions.tsx:28:5)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'selectedIndex')",
+        "TypeError: Cannot read properties of undefined (reading 'selectedIndex') after delivery options refresh",
         "at DesSelect (src/components/DesSelect.tsx:51:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -270,7 +272,7 @@
     }
   },
   {
-    "id": "ERR-3111",
+    "id": "ERR-4111",
     "envelope": {
       "errorName": "TypeError",
       "errorMessage": "Cannot read properties of null (reading 'id')",
@@ -295,25 +297,25 @@
     }
   },
   {
-    "id": "ERR-3112",
+    "id": "ERR-4112",
     "envelope": {
       "errorName": "TypeError",
-      "errorMessage": "Cannot read properties of undefined (reading 'displayName')",
+      "errorMessage": "Cannot read properties of undefined (reading 'averageRating') after the review summary cache refreshes",
       "componentStack": [
-        "at vendor-summary (src/components/VendorSummary.tsx:53:11)",
+        "at product-review-summary (src/components/ProductReviewSummary.tsx:53:11)",
         "at CartPage (src/pages/CartPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "TypeError: Cannot read properties of undefined (reading 'displayName')",
-        "at VendorSummary (src/components/VendorSummary.tsx:53:11)",
+        "TypeError: Cannot read properties of undefined (reading 'averageRating') after the review summary cache refreshes",
+        "at ProductReviewSummary (src/components/ProductReviewSummary.tsx:53:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
       "hostRoute": "/cart",
       "sanitizedProps": {
-        "vendor-summary": {
-          "vendor": {
+        "product-review-summary": {
+          "reviews": {
             "type": "object"
           }
         }
@@ -430,10 +432,10 @@
     }
   },
   {
-    "id": "ERR-3117",
+    "id": "ERR-4117",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Payment card expiry is invalid",
+      "errorMessage": "Card network icon is undefined after switching the selected payment method",
       "componentStack": [
         "at credit-card-banner (src/components/CreditCardBanner.tsx:58:11)",
         "at CheckoutPage (src/pages/CheckoutPage.tsx:102:3)",
@@ -441,7 +443,7 @@
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Payment card expiry is invalid",
+        "Error: Card network icon is undefined after switching the selected payment method",
         "at CreditCardBanner (src/components/CreditCardBanner.tsx:58:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
@@ -457,18 +459,19 @@
     }
   },
   {
-    "id": "ERR-3118",
+    "id": "ERR-4118",
     "envelope": {
       "errorName": "Error",
-      "errorMessage": "Selected option is missing its label",
+      "errorMessage": "Selected delivery option has no label after shipping rates refresh",
       "componentStack": [
         "at des-select (src/components/DesSelect.tsx:59:11)",
+        "at DeliveryOptions (src/components/DeliveryOptions.tsx:28:5)",
         "at CheckoutPage (src/pages/CheckoutPage.tsx:102:3)",
         "at main",
         "at App (src/App.tsx:14:7)"
       ],
       "callStack": [
-        "Error: Selected option is missing its label",
+        "Error: Selected delivery option has no label after shipping rates refresh",
         "at DesSelect (src/components/DesSelect.tsx:59:11)",
         "at renderWithHooks (assets/react-dom.js:5521:18)"
       ],
